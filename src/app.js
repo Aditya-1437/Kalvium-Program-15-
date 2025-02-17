@@ -16,7 +16,9 @@ var listItem = document.getElementById('list-container');
 
 
 function addValues() {
-
+    let input = document.getElementById("input-field");
+    bucketList.push(input.value)
+    showList();
 }
 
 /**
@@ -28,6 +30,8 @@ function addValues() {
 // 'splice()' takes two arguments: the index and the number of items to remove.
 // Step 5: Update the displayed list after the item is removed by calling 'showList()'.
 function remove(i) {
+    bucketList.splice(i,1)
+    showList()
  
 }
 /**
@@ -42,6 +46,24 @@ function remove(i) {
 // Add a class name to the <li> element for styling.
  // Step 9: Append the <li> element to the 'listItem' container so it appears on the webpage.
 function showList(){
+    listItem.innerHTML='';
+    // let list = bucketList.forEach((item)=>{
+    //     return `<li>${item}</li>`
+    // })
+    bucketList.forEach((item)=>{
+        let list = document.createElement("li")
+        let img = document.createElement("img")
+        img.src = ""
+        img.alt="remove"
+        list.innerHTML=item
+        list.append(img)
+        img.addEventListener('click',()=>{
+            remove(list)
+        })
+        list.classList.add('list')
+        listItem.append(list)
+    })
+
 
   
 }
@@ -53,5 +75,6 @@ function showList(){
 // Step 10: Clear the 'bucketList' array by setting it to an empty array.
  // Step 11: Update the displayed list by calling 'showList()'.
 function reset() {
-  
+  bucketList=[]
+  showList()
 }
